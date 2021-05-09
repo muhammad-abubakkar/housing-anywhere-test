@@ -2,7 +2,7 @@ import React from 'react'
 import clx from 'classnames'
 import { Character } from '@/models/character'
 import CharacterLocation from '@/components/CharacterLocation'
-import CharacterEpisodes from './CharacterEpisodes'
+import CharacterEpisodes from '@/components/CharacterEpisodes'
 
 interface Props {
   character: Character
@@ -62,7 +62,7 @@ const CharacterCard = ({ character }: Props) => {
           </tbody>
         </table>
       </div>
-      <CharacterLocation locationId={locationId} />
+      <CharacterLocation locationId={Number(locationId)} />
       <CharacterEpisodes episodeIds={episodeIds} />
     </div>
   )

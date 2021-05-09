@@ -6,6 +6,9 @@ interface Props {
 }
 
 const CharacterLocation = ({ locationId }: Props) => {
+  if (!locationId) {
+    return <span>{locationId} not found</span>
+  }
   const {isLoading, isSuccess, data} = useQuery(['location', locationId], () => getLocation(locationId))
 
   return (

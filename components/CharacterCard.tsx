@@ -1,8 +1,9 @@
 import React from 'react'
 import clx from 'classnames'
-import { Character } from "@/models/character"
 import { useQuery } from 'react-query'
+import { getEpisodes } from '@/api/episode'
 import { getLocation } from '@/api/location'
+import { Character } from '@/models/character'
 
 interface Props {
   character: Character
@@ -10,6 +11,11 @@ interface Props {
 
 const CharacterCard = ({ character }: Props) => {
   const id = character.origin.url.split('/').splice(-1)
+  const episodeIds = character.episode.map(url =>  {
+    return Number(url.split('/').splice(-1))
+  })
+  
+  const episodes = useQuery(['episodes', episodeIds], () => getEpisodes(episodeIds))
   const {isLoading, isSuccess, data} = useQuery(['location', id], () => getLocation(Number(id)))
 
   const badge = clx('absolute', 'text-sm', 'px-2', 'py-1', 'text-white')
@@ -87,6 +93,37 @@ const CharacterCard = ({ character }: Props) => {
             <tbody>
               <tr>
                 <td colSpan={2}>Loading Location Info...</td>
+              </tr>
+            </tbody>
+          )
+        }
+        </table>
+      </div>
+      <div>
+        <h3 className="bg-gray-600 text-white px-2 py-1 text-sm">Episodes</h3>
+        <table className="w-full text-sm">
+          <thead>
+            <tr>
+              <th className="text-left">Name</th>
+              <th className="text-right">Air Date</th>
+            </tr>
+          </thead>
+        {
+          !episodes.isLoading && episodes.isSuccess ? (
+            <tbody>
+              {
+                episodes.data.map(ep => (
+                  <tr key={ep.id}>
+                    <td className="text-left w-1/2">{ep.name}</td>
+                    <td className="text-right w-1/2">{ep.air_date}</td>
+                  </tr>    
+                ))
+              }
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan={2}>Loading Episodes Info...</td>
               </tr>
             </tbody>
           )

@@ -29,7 +29,7 @@ const CharacterCard = ({ character }: Props) => {
   const nameBadge = clx(badge, 'text-lg', 'font-bold', 'bottom-0', 'left-0', 'right-0', 'bg-blue-800', 'opacity-75')
 
   return (
-    <div className="flex flex-col p-3 border-2 space-y-1 hover:shadow hover:border-gray-600">
+    <div className="flex flex-col p-3 border-2 space-y-1 hover:shadow hover:border-gray-600 mt-2">
       <div className="relative">
         <img src={character.image} className="h-72 w-full" alt="Character Image"/>
         <span className={nameBadge}>
@@ -60,7 +60,7 @@ const CharacterCard = ({ character }: Props) => {
           </tbody>
         </table>
       </div>
-      <div className="h-32">
+      <div className="h-36">
         <h3 className="bg-gray-600 text-white px-2 py-1 text-sm">Location</h3>
         <table className="w-full text-sm">
         {

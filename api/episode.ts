@@ -8,5 +8,5 @@ export async function getEpisodes(ids: number[]): Promise<Array<Episode>> {
   if (ids.length === 1) {
     return [data]
   }
-  return await response.json()
+  return data
 }
